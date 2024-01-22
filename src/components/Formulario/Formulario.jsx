@@ -6,13 +6,6 @@ import Registro from '../Registro/Registro';
 import Alert from '../Alert/Alert';
 import { useState } from 'react';
 
-const exitoso =()=>{
-
-
-  
-}
-
-
 const Formulario = () =>{
   //Estados del formulario
 const [nombre, setNombre] = useState('');
@@ -20,9 +13,9 @@ const [mail, setMail] = useState('');
 const [pass, setPass] = useState('');
 const [pass2, setPass2] = useState('');
 const [error, setError] = useState();  
-const [error2, setError2] = useState(false);
-const [error3, setError3] = useState(false);
-const [success, setSuccess] = useState(false);
+const [error2, setError2] = useState();
+const [error3, setError3] = useState();
+const [success, setSuccess] = useState();
 
 
 //Función para validar que los campos no vayan vaciós
@@ -66,15 +59,25 @@ const validaPass =()=>{
 //   setEsValido(validarEmail(email));
 // }
 
+//validar que todo esté ok
+
+const userok =()=>{
+
+if(error === false && error3 === false){
+
+setSuccess(true)
+
+}}
+
  //Función para invocar a validar datos y otra
 
  const validaciones=(e)=>{
   e.preventDefault();
-  validaPass();
-  validarDatos();
-  
+validaPass();
+validarDatos();
+userok()
+}
 
- }
 
 
  return(
@@ -117,6 +120,8 @@ value={pass2}/>
       error2={error2}
       error3={error3}
       success={success}
+     
+   
       />
 
  </Form>
