@@ -3,8 +3,14 @@ import './Formulario.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Registro from '../Registro/Registro';
+import Alert from '../Alert/Alert';
 import { useState } from 'react';
 
+const exitoso =()=>{
+
+
+  
+}
 
 
 const Formulario = () =>{
@@ -13,42 +19,71 @@ const [nombre, setNombre] = useState('');
 const [mail, setMail] = useState('');
 const [pass, setPass] = useState('');
 const [pass2, setPass2] = useState('');
-
-const validaMailPass = () =>{
-  e.preventDefault();
-if (mail = ''){
-
-alert ("mail malo")
-
-}
-
-else{
-
-alert("Mail bueno")  
-}
-}
+const [error, setError] = useState();  
+const [error2, setError2] = useState(false);
+const [error3, setError3] = useState(false);
+const [success, setSuccess] = useState(false);
 
 
-//Estado para los errores
-const [error, setError] = useState(false);
+//Función para validar que los campos no vayan vaciós
 
-//Función antes de enviar el formulario
-const validarDatos = (e) => {
-  e.preventDefault();
-  //Validación;
+const validarDatos = () => {
+
   if (nombre === '' || mail === '' || pass === '' || pass2 === '')
   {
-  setError(true);
+  setError3(true);
   return;
   }
-  setError(false);
+  setError3(false);
   };
 
 
-  return(
+
+// validador Pass iguales
+const validaPass =()=>{
+
+  if (pass !== pass2){
+  
+    setError(true);
+ }else{
+
+  setError(false)
+ }}
+
+
+
+ //Validar mail
+//  const validarEmail = (email) => {
+//   const expresionRegular = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+//   return expresionRegular.test(email);
+// }
+
+// //Valida cambio mail
+// const handleChange = (e) => {
+
+//   const email = e.target.value;
+//   setMail(email);
+//   setEsValido(validarEmail(email));
+// }
+
+ //Función para invocar a validar datos y otra
+
+ const validaciones=(e)=>{
+  e.preventDefault();
+  validaPass();
+  validarDatos();
+  
+
+ }
+
+
+ return(
 
 <>
-<Form style={{ padding: '30px', height:'30rem' ,width: '20rem', border: '2px solid white', borderRadius: '40px',backgroundColor: 'white'}} onSubmit={validarDatos}>
+<Form style={{ padding: '30px', height:'33rem' ,width: '20rem', border: '2px solid white', borderRadius: '40px',backgroundColor: 'white'}} 
+
+onSubmit={validaciones}
+>
 
 <h2>Crea una cuenta</h2>
 <Registro/>
@@ -73,11 +108,18 @@ value={pass}/>
 value={pass2}/>
       </Form.Group>
 
-      <Button style={{ width: '16rem', background: 'green', textAlign: 'center' }} type="submit" onSubmit={validaMailPass}>
+      <Button style={{ width: '16rem', background: 'green', textAlign: 'center' }} type="submit">
         Registrarse
       </Button>
-      {error ? <p>Todos los campos son obligatorios</p> : null}   
-    </Form>
+      <Alert 
+      
+      error={error}
+      error2={error2}
+      error3={error3}
+      success={success}
+      />
+
+ </Form>
 </>
 
     )

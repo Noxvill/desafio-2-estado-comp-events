@@ -3,7 +3,8 @@ import './App.css'
 import Formulario from './components/Formulario/Formulario'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [success, setSuccess] = useState(false)
+
 
   return (
     <>
