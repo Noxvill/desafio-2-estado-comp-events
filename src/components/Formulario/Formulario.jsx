@@ -49,31 +49,44 @@ const validaPass =()=>{
 
 
  //Validar mail
-//  const validarEmail = (email) => {
-//   const expresionRegular = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-//   return expresionRegular.test(email);
-// }
+ 
+ const validarFormatoEmail = (email) => {
+  // Expresión regular para validar el formato de un correo electrónico
+  const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  
+  // Comprueba si el correo electrónico cumple con el formato
+  return regex.test(email);
+}
 
-// //Valida cambio mail
-// const handleChange = (e) => {
+//invocar a validar mail
 
-//   const email = e.target.value;
-//   setMail(email);
-//   setEsValido(validarEmail(email));
-// }
+const  llamaValidmail=()=>{
 
-//validar que todo esté ok
+const esValido = validarFormatoEmail(mail);
+
+if (esValido===false) {
+  setError2(true);
+  console.log("formato malo")
+  return true
+} else {
+  setError2(false);
+  console.log("formato ok")
+  return false
+}
+}
 
 
 
  //Función para invocar a validar datos y otra
 
  const validaciones=(e)=>{
-  e.preventDefault();
+e.preventDefault();
 validarDatos();
 validaPass();
+llamaValidmail();
 
-if(validarDatos() === false && validaPass() === false){
+
+if(validarDatos() === false && validaPass() === false && llamaValidmail() === false){
   
   setSuccess(true)
   
